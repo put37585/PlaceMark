@@ -1,4 +1,11 @@
 {
   "users": [
+    {
+      "firstName": "t",
+      "lastName": "t",
+      "email": "test@test.com",
+      "password": "t",
+      "_id": "7414c4ec-eca9-498a-a85d-7176ab7723e9"
+    }
   ]
 }

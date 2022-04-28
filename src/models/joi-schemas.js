@@ -11,3 +11,11 @@ export const UserSpec = {
   email: Joi.string().email().required(),
   password: Joi.string().required(),
 };
+
+
+export const PoiSpec = {
+  name: Joi.string().required(),
+  description: Joi.string().allow("").optional(),
+  latitude: Joi.number().required(),
+  longitude: Joi.number().required(),
+};

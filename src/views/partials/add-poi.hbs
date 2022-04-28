@@ -1,0 +1,16 @@
+
+  <form action="/dashboard/addpoi" method="POST">
+    <div class="field">
+      <label class="label">PoI Name</label>
+      <input class="input" type="text" placeholder="Enter the name of the location" name="name">
+      <label class="label">Description</label>
+      <input class="input" type="text" placeholder="Describe the place" name="description">
+      <label class="label">Latitude and Longitude</label>
+      <div class="field is-grouped">
+        <input class="input" type="text" placeholder="Latitude" name="latitude">
+        <p class="is-size-4 has-text-weight-bold"> / </p>
+        <input class="input" type="text" placeholder="Longitude" name="longitude">
+      </div>
+    </div>
+    <button class="button is-link">Add Point of Intrest</button>
+  </form>

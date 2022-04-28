@@ -48,11 +48,10 @@ export const accountsController = {
       const { email, password } = request.payload;
       const user = await db.userStore.getUserByEmail(email);
       if (!user || user.password !== password) {
-        var error ={message:"Wrong password or email"}
-        return h.view("login-view", { title: "Log in error", errors: [error]} ).takeover().code(400);
+        return h.view("login-view", { title: "Log in error", errors: [{message:"Wrong password or email"}]} ).takeover().code(400);
       }
       request.cookieAuth.set({ id: user._id });
-      return h.redirect("/about"); // TODO: Dashboard / Map etc
+      return h.redirect("/dashboard"); // TODO: Dashboard / Map etc
     },
   },
   logout: {
