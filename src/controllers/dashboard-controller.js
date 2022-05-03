@@ -1,15 +1,15 @@
-import { PoiSpec } from "../models/joi-schemas.js";
+import { PoiSpec, CategorySpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 
 export const dashboardController = {
   index: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      const pois = await db.poiStore.getUserPois(loggedInUser._id);
+      const categories = await db.categoryStore.getUserCategories(loggedInUser._id);
       const viewData = {
         title: "PlaceMark Dashboard",
         user: loggedInUser,
-        pois: pois,
+        categories: categories,
       };
       return h.view("dashboard-view", viewData);
     },
@@ -19,12 +19,21 @@ export const dashboardController = {
     validate: {
       payload: PoiSpec,
       options: { abortEarly: false },
-      failAction: function (request, h, error) {
-        return h.view("dashboard-view", { title: "Add PoI error", errors: error.details }).takeover().code(400);
+      failAction: async function (request, h, error) {
+        const loggedInUser = request.auth.credentials; 
+        const categories = await db.categoryStore.getUserCategories(loggedInUser._id);
+        const viewData = {
+          title: "Add PoI error",
+          user: loggedInUser,
+          categories: categories, 
+          errors: error.details 
+        };
+        return h.view("dashboard-view", viewData).takeover().code(400);
       },
     },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
+      const categoryId = request.payload.categoryid;
       const newPoI = {
         userid: loggedInUser._id,
         name: request.payload.name,
@@ -32,14 +41,43 @@ export const dashboardController = {
         latitude: request.payload.latitude,
         longitude: request.payload.longitude,
       };
-      await db.poiStore.addPoi(newPoI);
+      await db.poiStore.addPoi(categoryId, newPoI);
+      return h.redirect(`/category/${categoryId}`);
+    },
+  },
+
+  addCategory: {
+    validate: {
+      payload: CategorySpec,
+      options: { abortEarly: false },
+      
+      failAction: async function (request, h, error) {
+        const loggedInUser = request.auth.credentials; 
+        const categories = await db.categoryStore.getUserCategories(loggedInUser._id);
+        const viewData = {
+          title: "Add Category error",
+          user: loggedInUser,
+          categories: categories, 
+          errors: error.details 
+        };
+        return h.view("dashboard-view", viewData).takeover().code(400);
+      },
+    },
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const newPlayList = {
+        userid: loggedInUser._id,
+        title: request.payload.title,
+      };
+      await db.categoryStore.addCategory(newPlayList);
       return h.redirect("/dashboard");
     },
   },
 
-  deletePoi: {
+  deleteCategory: {
     handler: async function (request, h) {
-      await db.poiStore.deletePoiById(request.params.id);
+      const category = await db.categoryStore.getCategoryById(request.params.id);
+      await db.categoryStore.deleteCategoryById(category._id);
       return h.redirect("/dashboard");
     },
   },

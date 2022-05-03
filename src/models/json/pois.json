@@ -1,20 +1,22 @@
 {
   "pois": [
     {
-      "userid": "7414c4ec-eca9-498a-a85d-7176ab7723e9",
+      "userid": "659c1d03-ce0d-4b54-a29d-06bdc1b271d7",
       "name": "3242",
-      "description": "q",
-      "latitude": 2,
-      "longitude": 2,
-      "_id": "5aac1fe4-c158-4062-a226-5fa748959cf3"
+      "description": "3242",
+      "latitude": 32,
+      "longitude": 234,
+      "_id": "ace4ff2e-6dcc-479d-9848-52b526185fe5",
+      "categoryid": "5ed22e7b-2c7f-4e6a-b90d-2b44cbba94ac"
     },
     {
-      "userid": "7414c4ec-eca9-498a-a85d-7176ab7723e9",
-      "name": "wer",
-      "description": "wer",
+      "userid": "659c1d03-ce0d-4b54-a29d-06bdc1b271d7",
+      "name": "wqe",
+      "description": "q",
       "latitude": 32,
-      "longitude": 3,
-      "_id": "50bb4052-a2ea-4e25-a278-431bd3e58d34"
+      "longitude": 2,
+      "_id": "dc2f7f78-faae-445b-8956-a16d9c6ad22b",
+      "categoryid": "5ec40eb8-2bdc-4e59-adbb-103714c2b875"
     }
   ]
 }

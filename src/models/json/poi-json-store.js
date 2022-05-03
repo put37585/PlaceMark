@@ -11,17 +11,22 @@ export const poiJsonStore = {
     return db.data.pois;
   },
 
-  async addPoi(poi) {
+  async addPoi(categoryId, poi) {
     await db.read();
     poi._id = v4();
+    poi.categoryid = categoryId;
     db.data.pois.push(poi);
     await db.write();
     return poi;
   },
+  async getPoisByCategoryId(id) {
+    await db.read();
+    return db.data.pois.filter((p) => p.categoryid === id);
+  },
   
   async getUserPois(userid) {
     await db.read();
-    return db.data.pois.filter((poi) => poi.userid === userid);
+    return db.data.pois.filter((p) => p.userid === userid);
   },
 
   async getPoiById(id) {

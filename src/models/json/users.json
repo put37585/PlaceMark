@@ -6,6 +6,13 @@
       "email": "test@test.com",
       "password": "t",
       "_id": "7414c4ec-eca9-498a-a85d-7176ab7723e9"
+    },
+    {
+      "firstName": "q",
+      "lastName": "q",
+      "email": "q@q.com",
+      "password": "q",
+      "_id": "659c1d03-ce0d-4b54-a29d-06bdc1b271d7"
     }
   ]
 }

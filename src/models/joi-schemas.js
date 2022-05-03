@@ -18,4 +18,16 @@ export const PoiSpec = {
   description: Joi.string().allow("").optional(),
   latitude: Joi.number().required(),
   longitude: Joi.number().required(),
+  categoryid: Joi.string().required(),
+};
+
+export const PoiFromCatSpec = {
+  name: Joi.string().required(),
+  description: Joi.string().allow("").optional(),
+  latitude: Joi.number().required(),
+  longitude: Joi.number().required(),
+};
+
+export const CategorySpec = {
+  title: Joi.string().required(),
 };
