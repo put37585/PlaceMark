@@ -1,5 +1,5 @@
-# User JSON
-src/models/json/users.json
+# JSON models
+/src/models/json/*.json
 
 # IDE
 .idea
