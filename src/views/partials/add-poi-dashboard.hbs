@@ -1,3 +1,6 @@
 <form action="/dashboard/addpoi" method="POST">
-  {{> add-poi-form}}
+  
+  {{#if categories}}
+    {{> add-poi-form}}
+  {{/if}}
 </form>
