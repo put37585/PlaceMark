@@ -23,4 +23,54 @@ export const placemarkService = {
     const res = await axios.delete(`${this.placemarkUrl}/api/users`);
     return res.data;
   },
+
+  async createCategory(category) {
+    const res = await axios.post(`${this.playtimeUrl}/api/categories`, category);
+    return res.data;
+  },
+
+  async deleteAllCategories() {
+    const response = await axios.delete(`${this.playtimeUrl}/api/categories`);
+    return response.data;
+  },
+
+  async deleteCategory(id) {
+    const response = await axios.delete(`${this.playtimeUrl}/api/categories/${id}`);
+    return response;
+  },
+
+  async getAllCategories() {
+    const res = await axios.get(`${this.playtimeUrl}/api/categories`);
+    return res.data;
+  },
+
+  async getCategory(id) {
+    const res = await axios.get(`${this.playtimeUrl}/api/categories/${id}`);
+    return res.data;
+  },
+
+  async getAllPois() {
+    const res = await axios.get(`${this.playtimeUrl}/api/pois`);
+    return res.data;
+  },
+
+  async createPoi(id, poi) {
+    const res = await axios.post(`${this.playtimeUrl}/api/categories/${id}/pois`, poi);
+    return res.data;
+  },
+
+  async deleteAllPois() {
+    const res = await axios.delete(`${this.playtimeUrl}/api/pois`);
+    return res.data;
+  },
+
+  async getPoi(id) {
+    const res = await axios.get(`${this.playtimeUrl}/api/pois/${id}`);
+    return res.data;
+  },
+
+  async deletePoi(id) {
+    const res = await axios.delete(`${this.playtimeUrl}/api/pois/${id}`);
+    return res.data;
+  },
 };
