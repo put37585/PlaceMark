@@ -5,15 +5,16 @@ export const UserCredentialsSpec = {
   password: Joi.string().required(),
 };
 
-export const UserSpec = {
+export const UserSpec = Joi.object()
+.keys({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().required(),
-};
+})
+.label("UserDetails");
 
 export const UserArray = Joi.array().items(UserSpec).label("UserArray");
-
 
 export const PoiSpec = {
   name: Joi.string().required(),
