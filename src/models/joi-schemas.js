@@ -12,6 +12,8 @@ export const UserSpec = {
   password: Joi.string().required(),
 };
 
+export const UserArray = Joi.array().items(UserSpec).label("UserArray");
+
 
 export const PoiSpec = {
   name: Joi.string().required(),
