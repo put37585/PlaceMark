@@ -21,21 +21,38 @@ export const UserSpecPlus = UserSpec.keys({
 
 export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
 
-export const PoiSpec = {
-  name: Joi.string().required(),
-  description: Joi.string().allow("").optional(),
-  latitude: Joi.number().required(),
-  longitude: Joi.number().required(),
-  categoryid: Joi.string().required(),
-};
+export const PoiSpec = Joi.object().keys({
+  name: Joi.string().example("Stone Bridge").required(),
+  description: Joi.string().allow("").example("Stone Bridge (Regensburg)").optional(),
+  latitude: Joi.number().example(49).required(),
+  longitude: Joi.number().example(12).required(),
+  categoryid: IdSpec,
+}).label("Poi");
 
-export const PoiFromCatSpec = {
-  name: Joi.string().required(),
-  description: Joi.string().allow("").optional(),
-  latitude: Joi.number().required(),
-  longitude: Joi.number().required(),
-};
 
-export const CategorySpec = {
-  title: Joi.string().required(),
-};
+export const PoiFromCatSpec = Joi.object().keys({
+  name: Joi.string().example("Stone Bridge").required(),
+  description: Joi.string().allow("").example("Stone Bridge (Regensburg)").optional(),
+  latitude: Joi.number().example(49).required(),
+  longitude: Joi.number().example(12).required(),
+}).label("Poi from Category");
+
+export const PoiSpecPlus = PoiSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("PoiPlus");
+
+export const PoiArraySpec = Joi.array().items(PoiSpecPlus).label("PoiArray");
+
+export const CategorySpec = Joi.object().keys({
+  title: Joi.string().example("Nice Bridges").required(),
+  userid: IdSpec,
+  pois: PoiArraySpec,
+});
+
+export const CategorySpecPlus = CategorySpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("CategoryPlus");
+
+export const CategoryArraySpec = Joi.array().items(CategorySpecPlus).label("CategoryArray")
