@@ -1,3 +1,20 @@
 {
-  "pois": []
+  "pois": [
+    {
+      "name": "Stone Bridge",
+      "description": "Stone Bridge (Regensburg)",
+      "latitude": 49,
+      "longitude": 12,
+      "_id": "486284eb-620e-4404-a1ae-09ee49b656ef",
+      "categoryid": "eba67e6f-c445-428d-b3a3-ce202a737702"
+    },
+    {
+      "name": "Iron Footbridge",
+      "description": "Iron Footbridge (Regensburg)",
+      "latitude": 49,
+      "longitude": 12,
+      "_id": "fa7ce68f-232b-4c8b-810c-e738ac220810",
+      "categoryid": "eba67e6f-c445-428d-b3a3-ce202a737702"
+    }
+  ]
 }

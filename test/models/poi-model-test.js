@@ -8,7 +8,7 @@ suite("Poi Model tests", () => {
   let bridgesList = null;
 
   setup(async () => {
-    db.init("json");
+    db.init("mongo");
     await db.categoryStore.deleteAllCategories();
     await db.poiStore.deleteAllPois();
     bridgesList = await db.categoryStore.addCategory(bridges);
