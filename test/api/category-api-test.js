@@ -2,29 +2,33 @@ import { assert } from "chai";
 import { placemarkService } from "./placemark-service.js";
 import { assertSubset } from "../test-utils.js";
 
-import { maggie, stoneBridge, testCategories } from "../fixtures.js";
+import { maggie, bridges, testCategories, maggieCredentials } from "../fixtures.js";
 
 suite("Category API tests", () => {
 
   let user = null;
 
   setup(async () => {
+    placemarkService.clearAuth();
+    user = await placemarkService.createUser(maggie);
+    await placemarkService.authenticate(maggieCredentials);
     await placemarkService.deleteAllCategories();
     await placemarkService.deleteAllUsers();
     user = await placemarkService.createUser(maggie);
-    stoneBridge.userid = user._id;
+    await placemarkService.authenticate(maggieCredentials);
+    bridges.userid = user._id;
   });
 
   teardown(async () => {});
 
   test("create category", async () => {
-    const returnedCategory = await placemarkService.createCategory(stoneBridge);
+    const returnedCategory = await placemarkService.createCategory(bridges);
     assert.isNotNull(returnedCategory);
-    assertSubset(stoneBridge, returnedCategory);
+    assertSubset(bridges, returnedCategory);
   });
 
   test("delete a category", async () => {
-    const category = await placemarkService.createCategory(stoneBridge);
+    const category = await placemarkService.createCategory(bridges);
     const response = await placemarkService.deleteCategory(category._id);
     assert.equal(response.status, 204);
     try {
