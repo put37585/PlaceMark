@@ -3,6 +3,8 @@ import { categoryApi } from "./api/category-api.js";
 import { poiApi } from "./api/poi-api.js";
 
 export const apiRoutes = [
+  { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
+  
   { method: "GET", path: "/api/users", config: userApi.find },
   { method: "POST", path: "/api/users", config: userApi.create },
   { method: "DELETE", path: "/api/users", config: userApi.deleteAll },

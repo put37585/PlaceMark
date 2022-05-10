@@ -6,6 +6,10 @@ export const maggie = {
   email: "maggie@simpson.com",
   password: "secret",
 };
+export const maggieCredentials = {
+  email: "maggie@simpson.com",
+  password: "secret"
+};
 
 export const testUsers = [
   {
@@ -46,10 +50,10 @@ export const testCategories = [
 ];
 
 export const stoneBridge = {
-  name: "Stone Bridge",
-  description: "Stone Bridge (Regensburg)",
-  latitude: 49,
-  longitude: 12,
+  "name": "Stone Bridge",
+  "description": "Stone Bridge (Regensburg)",
+  "latitude": 49,
+  "longitude": 12,
 };
 
 export const ironFootbridge = {
@@ -61,15 +65,15 @@ export const ironFootbridge = {
 
 export const testPois = [
   {
-    name: "Stone Bridge",
-    description: "Stone Bridge (Regensburg)",
-    latitude: 49,
-    longitude: 12,
+    "name": "Stone Bridge",
+    "description": "Stone Bridge (Regensburg)",
+    "latitude": 49,
+    "longitude": 12,
   },
   {
-    name: "Iron Footbridge",
-    description: "Iron Footbridge (Regensburg)",
-    latitude: 49,
-    longitude: 12,
+    "name": "Iron Footbridge",
+    "description": "Iron Footbridge (Regensburg)",
+    "latitude": 49,
+    "longitude": 12,
   },
 ];
