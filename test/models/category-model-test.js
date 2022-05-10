@@ -6,7 +6,7 @@ import { assertSubset } from "../test-utils.js";
 suite("Category Model tests", () => {
 
   setup(async () => {
-    db.init("json");
+    db.init("mongo");
     await db.categoryStore.deleteAllCategories();
     for (let i = 0; i < testCategories.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
@@ -16,6 +16,7 @@ suite("Category Model tests", () => {
 
   test("create a category", async () => {
     const category = await db.categoryStore.addCategory(nicePlaces);
+    console.log(category)
     assertSubset(nicePlaces, category);
     assert.isDefined(category._id);
   });
