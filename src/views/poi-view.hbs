@@ -1,6 +1,11 @@
 {{> menu}}
 
 <div class="box">
+  
+  {{#if poi.img}}
+  {{> poi-image }}
+  {{/if}}
+
   <div class="container is-fluid mb-4 block">
     <label class="label"> PoI Name </label>
     <p name="name"> {{ poi.name }} </p>
@@ -20,5 +25,8 @@
       <p name="longitude"> {{ poi.longitude }} </p>
     </div>
   </div>
+  {{#unless poi.img}}
+  {{> poi-image-select }}
+  {{/unless}}
 
 </div>

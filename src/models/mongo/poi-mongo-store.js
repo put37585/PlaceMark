@@ -39,10 +39,13 @@ export const poiMongoStore = {
     await Poi.deleteMany({});
   },
 
-  async updatePoi(poi, updatedPoi) {
-    poi.title = updatedPoi.title;
-    poi.artist = updatedPoi.artist;
-    poi.duration = updatedPoi.duration;
+  async updatePoi(updatedPoi) {
+    const poi = await Poi.findOne({ _id: updatedPoi._id });
+    poi.name = updatedPoi.name;
+    poi.description = updatedPoi.description;
+    poi.latitude = updatedPoi.latitude;
+    poi.longitude = updatedPoi.longitude;
+    poi.img = updatedPoi.img;
     await poi.save();
   },
 };
