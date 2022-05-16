@@ -1,15 +1,14 @@
 {{> menu}}
 
 <div class="box">
+  <a href="/category/{{ poi.categoryid }}/poi/{{poi._id}}/edit" class="button is-pulled-right">
+    <span class="icon is-small">
+      <i class="fas fa-edit"></i>
+    </span>
+  </a>
+  <p class="title" name="name"> {{ poi.name }} </p>
   
-  {{#if poi.img}}
   {{> poi-image }}
-  {{/if}}
-
-  <div class="container is-fluid mb-4 block">
-    <label class="label"> PoI Name </label>
-    <p name="name"> {{ poi.name }} </p>
-  </div>
   
   {{#if poi.description}}
   <div class="container is-fluid mb-4 block">

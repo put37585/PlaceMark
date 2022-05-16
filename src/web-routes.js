@@ -25,7 +25,9 @@ export const webRoutes = [
 
   
   { method: "GET", path: "/category/{id}/poi/{poiid}", config: poiController.index },
+  { method: "GET", path: "/category/{id}/poi/{poiid}/edit", config: poiController.edit },
   { method: "POST", path: "/category/{id}/poi/{poiid}/uploadimage", config: poiController.uploadImage },
-  { method: "POST", path: "/category/{id}/updatepoi/{poiid}", config: poiController.update }, 
+  { method: "POST", path: "/category/{id}/poi/{poiid}/update", config: poiController.update }, 
+  { method: "POST", path: "/category/{id}/poi/{poiid}/updateimage", config: poiController.updateImage }, 
 
 ];

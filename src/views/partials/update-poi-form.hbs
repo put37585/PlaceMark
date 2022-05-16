@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-content">
+    <form action="/category/{{poi.categoryid}}/poi/{{poi._id}}/update" method="POST">
+      <div class="field">
+        <label class="label">PoI Name</label>
+        <input class="input" type="text" placeholder="Enter the name of the location" name="name" value="{{ poi.name }}" />
+        <label class="label">Description</label>
+        <input class="input" type="text" placeholder="Describe the place" name="description" value="{{ poi.description }}" />
+        <label class="label">Latitude and Longitude</label>
+        <div class="field is-grouped">
+          <input class="input" type="text" placeholder="Latitude" name="latitude" value="{{ poi.latitude }}" />
+          <p class="is-size-4 has-text-weight-bold"> / </p>
+          <input class="input" type="text" placeholder="Longitude" name="longitude" value="{{ poi.longitude }}" />
+        </div>
+      </div>
+      <button class="button is-link">Update Point of Intrest</button>
+    </form>
+  </div>
+</div>

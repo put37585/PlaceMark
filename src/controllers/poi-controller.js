@@ -5,36 +5,70 @@ import { imageStore } from "../models/image-store.js";
 export const poiController = {
   index: {
     handler: async function (request, h) {
-      const category = await db.categoryStore.getCategoryById(request.params.id);
       const poi = await db.poiStore.getPoiById(request.params.poiid);
       const viewData = {
         title: "Poi",
-        category: category,
         poi: poi,
       };
       return h.view("poi-view", viewData);
     },
   },
-
+  edit: {
+    handler: async function (request, h) {
+      const poi = await db.poiStore.getPoiById(request.params.poiid);
+      const viewData = {
+        title: "Edit Poi",
+        poi: poi,
+      };
+      return h.view("edit-poi-view", viewData);
+    },
+  },
   update: {
     validate: {
       payload: PoiSpec,
       options: { abortEarly: false },
-      failAction: function (request, h, error) {
-        return h.view("poi-view", { title: "Edit poi error", errors: error.details }).takeover().code(400);
+      failAction: async function (request, h, error) {
+        const poi = await db.poiStore.getPoiById(request.params.poiid);
+        return h.view("edit-poi-view", { title: "Edit poi error", poi: poi,  errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
-      const poi = await db.poiStore.getPoiById(request.params.poiid);
+      const categoryId = request.params.id;
       const newPoi = {
-        name: request.params.name,
-        description: request.params.description,
-        latitude: request.params.latitude,
-        longitude: request.params.longitude,
+        _id: request.params.poiid,
+        name: request.payload.name,
+        description: request.payload.description,
+        latitude: request.payload.latitude,
+        longitude: request.payload.longitude,
       };
-      await db.poiStore.updatePoi(poi, newPoi);
-      return h.redirect(`/category/${request.params.id}`);
+      await db.poiStore.updatePoi(newPoi);
+      return h.redirect(`/category/${categoryId}/poi/${newPoi._id}`);
     },
+  },
+  updateImage: {
+    handler: async function(request, h) {
+      const categoryId = request.params.id;
+      const poi = await db.poiStore.getPoiById(request.params.poiid);
+      try {
+        const file = request.payload.imagefile;
+        await imageStore.deleteImage(poi.img);
+        if (Object.keys(file).length > 0) {
+          const url = await imageStore.uploadImage(request.payload.imagefile);
+          poi.img = url;
+          db.poiStore.updatePoi(poi);
+        }
+        return h.redirect(`/category/${categoryId}/poi/${poi._id}`);
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/category/${categoryId}/poi/${poi._id}`);
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true
+    }
   },
   uploadImage: {
     handler: async function(request, h) {
@@ -42,7 +76,6 @@ export const poiController = {
         const categoryId = request.params.id;
         const poi = await db.poiStore.getPoiById(request.params.poiid);
         const file = request.payload.imagefile;
-        console.log(file)
         if (Object.keys(file).length > 0) {
           const url = await imageStore.uploadImage(request.payload.imagefile);
           poi.img = url;

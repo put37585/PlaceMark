@@ -24,7 +24,8 @@ export const imageStore = {
     return response.url;
   },
 
-  deleteImage: async function(img) {
+  deleteImage: async function(imgURL) {
+    const img = imgURL.substring(imgURL.lastIndexOf("/") + 1).split(".")[0];
     await cloudinary.v2.uploader.destroy(img, {});
   }
 };

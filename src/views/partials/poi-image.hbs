@@ -1,5 +1,7 @@
-<div class="card-image">
-  <figure class="image is-256x256">
-    <img src={{poi.img}} />
-  </figure>
-</div>
+{{#if poi.img}}
+  <div class="card-image">
+    <figure class="image is-256x256">
+      <img src={{poi.img}} />
+    </figure>
+  </div>
+{{/if}}
