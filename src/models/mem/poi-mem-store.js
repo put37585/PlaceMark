@@ -34,9 +34,11 @@ export const poiMemStore = {
     pois = [];
   },
 
-  async updatePoi(poi, updatedPoi) {
-    poi.title = updatedPoi.title;
-    poi.artist = updatedPoi.artist;
-    poi.duration = updatedPoi.duration;
+  async updatePoi(updatedPoi) {
+    const poi = this.getPoiById(updatedPoi._id)
+    poi.name = updatedPoi.name;
+    poi.description = updatedPoi.description;
+    poi.latitude = updatedPoi.latitude;
+    poi.longitude = updatedPoi.longitude;
   },
 };
