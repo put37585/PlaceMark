@@ -15,8 +15,12 @@ const __dirname = path.dirname(__filename);
 
 const result = dotenv.config({path: `${__dirname  }/.env`});
 if (result.error) {
-  console.log(result.error.message);
-  process.exit(1);
+  if (process.env.NODE_ENV === "production" && result.error.code === "ENOENT") {
+    console.info("expected this error because we are in production without a .env file")
+  } else {
+    console.log(result.error.message);
+    process.exit(1);
+  }
 }
 
 async function init() {
