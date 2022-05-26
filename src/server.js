@@ -18,7 +18,7 @@ import { accountsController } from "./controllers/accounts-controller.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const result = dotenv.config({path: `${__dirname  }/.env`});
+const result = dotenv.config();
 if (result.error) {
   if (process.env.NODE_ENV === "production" && result.error.code === "ENOENT") {
     console.info("expected this error because we are in production without a .env file")
@@ -45,7 +45,10 @@ const swaggerOptions = {
 
 async function init() {
   const server = Hapi.server({
-    port: process.env.PORT || 3000
+    port: process.env.PORT || 4000,
+    routes: {
+      cors: true
+    }
   });
 
   await server.register(Vision);
