@@ -44,6 +44,28 @@ export const categoryApi = {
     response: { schema: CategorySpecPlus, failAction: validationError },
   },
 
+  findUser: {
+    auth: {
+      strategy: "jwt",
+    },
+    async handler(request) {
+      try {
+        const category = await db.categoryStore.getUserCategories(request.params.id);
+        if (!category) {
+          return Boom.notFound("No categories for this user");
+        }
+        return category;
+      } catch (err) {
+        return Boom.serverUnavailable("No categories for this user");
+      }
+    },
+    tags: ["api"],
+    description: "Find a Category",
+    notes: "Returns a category",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: CategoryArraySpec, failAction: validationError },
+  },
+
   create: {
     auth: {
       strategy: "jwt",

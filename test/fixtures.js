@@ -1,4 +1,4 @@
-export const serviceUrl = "http://localhost:3000";
+export const serviceUrl = `http://localhost:${process.env.PORT || 4000}`;
 
 export const maggie = {
   firstName: "Maggie",
@@ -8,7 +8,7 @@ export const maggie = {
 };
 export const maggieCredentials = {
   email: "maggie@simpson.com",
-  password: "secret"
+  password: "secret",
 };
 
 export const testUsers = [
@@ -50,10 +50,10 @@ export const testCategories = [
 ];
 
 export const stoneBridge = {
-  "name": "Stone Bridge",
-  "description": "Stone Bridge (Regensburg)",
-  "latitude": 49,
-  "longitude": 12,
+  name: "Stone Bridge",
+  description: "Stone Bridge (Regensburg)",
+  latitude: 49,
+  longitude: 12,
 };
 
 export const ironFootbridge = {
@@ -65,15 +65,15 @@ export const ironFootbridge = {
 
 export const testPois = [
   {
-    "name": "Stone Bridge",
-    "description": "Stone Bridge (Regensburg)",
-    "latitude": 49,
-    "longitude": 12,
+    name: "Stone Bridge",
+    description: "Stone Bridge (Regensburg)",
+    latitude: 49,
+    longitude: 12,
   },
   {
-    "name": "Iron Footbridge",
-    "description": "Iron Footbridge (Regensburg)",
-    "latitude": 49,
-    "longitude": 12,
+    name: "Iron Footbridge",
+    description: "Iron Footbridge (Regensburg)",
+    latitude: 49,
+    longitude: 12,
   },
 ];
