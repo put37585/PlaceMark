@@ -20,8 +20,12 @@ const __dirname = path.dirname(__filename);
 
 const result = dotenv.config();
 if (result.error) {
-  console.log(result.error.message);
-  process.exit(1);
+  if (process.env.NODE_ENV === "production" && result.error.code === "ENOENT") {
+    console.info("expected this error because we are in production without a .env file")
+  } else {
+    console.log(result.error.message);
+    process.exit(1);
+  }
 }
 
 const swaggerOptions = {
@@ -41,8 +45,10 @@ const swaggerOptions = {
 
 async function init() {
   const server = Hapi.server({
-    port: 3000,
-    host: "localhost",
+    port: process.env.PORT || 4000,
+    routes: {
+      cors: true
+    }
   });
 
   await server.register(Vision);

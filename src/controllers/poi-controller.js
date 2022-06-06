@@ -75,7 +75,6 @@ export const poiController = {
       try {
         const categoryId = request.params.id;
         const poi = await db.poiStore.getPoiById(request.params.poiid);
-        const file = request.payload.imagefile;
         if (Object.keys(file).length > 0) {
           const url = await imageStore.uploadImage(request.payload.imagefile);
           poi.img = url;

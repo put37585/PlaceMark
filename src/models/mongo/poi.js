@@ -7,7 +7,7 @@ const poiSchema = new Schema({
   description: String,
   latitude: Number,
   longitude: Number,
-  img: String,
+  img: [],
   categoryid: {
     type: Schema.Types.ObjectId,
     ref: "Category",
