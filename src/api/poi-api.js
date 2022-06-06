@@ -72,7 +72,6 @@ export const poiApi = {
     },
     handler: async function (request, h) {
       try {
-        console.log("hi");
         const poi = await db.poiStore.updatePoi(request.params.id, request.payload);
         if (poi) {
           return h.response(poi).code(201);
@@ -95,8 +94,8 @@ export const poiApi = {
     },
     handler: async function (request, h) {
       try {
-        await db.poiStore.deleteAllPois();
-        return h.response().code(204);
+        const deletedCategory = await db.poiStore.deleteAllPois();
+        return h.response(deletedCategory).code(201);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
