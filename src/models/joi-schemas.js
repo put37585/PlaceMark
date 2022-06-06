@@ -26,7 +26,7 @@ export const PoiSpec = Joi.object().keys({
   description: Joi.string().allow("").example("Stone Bridge (Regensburg)").optional(),
   latitude: Joi.number().example(49).required(),
   longitude: Joi.number().example(12).required(),
-  img: Joi.string().example("Imageurl").optional(),
+  img: Joi.array().items(Joi.string()).example("Imageurls").optional(),
   categoryid: IdSpec,
 }).label("Poi");
 

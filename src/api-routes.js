@@ -4,7 +4,7 @@ import { poiApi } from "./api/poi-api.js";
 
 export const apiRoutes = [
   { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
-  
+
   { method: "GET", path: "/api/users", config: userApi.find },
   { method: "POST", path: "/api/users", config: userApi.create },
   { method: "DELETE", path: "/api/users", config: userApi.deleteAll },
@@ -23,6 +23,7 @@ export const apiRoutes = [
   { method: "POST", path: "/api/categories/{id}/pois", config: poiApi.create },
   { method: "DELETE", path: "/api/pois", config: poiApi.deleteAll },
   { method: "DELETE", path: "/api/pois/{id}", config: poiApi.deleteOne },
-  { method: "POST", path: "/api/pois/{id}/uploadimage", config: poiApi.uploadImage },
-  { method: "POST", path: "/api/pois/{id}/updateimage", config: poiApi.updateImage },
+  { method: "POST", path: "/api/pois/{id}/image", config: poiApi.uploadImage },
+  { method: "POST", path: "/api/pois/{id}/image/delete", config: poiApi.deleteImage },
+  // { method: "POST", path: "/api/pois/{id}/updateimage", config: poiApi.updateImage },
 ];

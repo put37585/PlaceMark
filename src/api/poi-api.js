@@ -134,7 +134,10 @@ export const poiApi = {
         const poi = await db.poiStore.getPoiById(request.params.id);
         if (request.payload.file.length > 0) {
           const url = await imageStore.uploadImage(request.payload.file);
-          poi.img = url;
+          if (!poi.img) {
+            poi.img = [];
+          }
+          poi.img.push(url);
           await db.poiStore.updatePoi(request.params.id, poi);
         }
         return h.response(poi).code(201);
@@ -152,34 +155,61 @@ export const poiApi = {
     tags: ["api"],
     description: "Upload a image to a poi",
   },
-  updateImage: {
+
+  deleteImage: {
     auth: {
       strategy: "jwt",
     },
     handler: async function (request, h) {
       try {
+        const imgUrl = request.payload.imageUrl;
         const poi = await db.poiStore.getPoiById(request.params.id);
-        if (request.payload.file.length > 0) {
-          const url = await imageStore.uploadImage(request.payload.file);
-          if (poi.img) {
-            imageStore.deleteImage(poi.img);
-          }
-          poi.img = url;
-          await db.poiStore.updatePoi(request.params.id, poi);
+        if (!poi.img) {
+          return h.response().code(204);
         }
+        await imageStore.deleteImage(imgUrl);
+        const found = poi.img.findIndex((img) => img === imgUrl);
+        if (found !== -1) {
+          poi.img.splice(found, 1);
+        }
+        await db.poiStore.updatePoi(request.params.id, poi);
         return h.response(poi).code(201);
       } catch (err) {
         console.log(err);
         return Boom.serverUnavailable("Error while uploading the image");
       }
     },
-    payload: {
-      multipart: true,
-      output: "data",
-      maxBytes: 209715200,
-      parse: true,
-    },
     tags: ["api"],
-    description: "Update the image of a poi",
+    description: "Delete a image from a poi",
   },
+  // updateImage: {
+  //   auth: {
+  //     strategy: "jwt",
+  //   },
+  //   handler: async function (request, h) {
+  //     try {
+  //       const poi = await db.poiStore.getPoiById(request.params.id);
+  //       if (request.payload.file.length > 0) {
+  //         const url = await imageStore.uploadImage(request.payload.file);
+  //         if (poi.img) {
+  //           imageStore.deleteImage(poi.img);
+  //         }
+  //         poi.img = url;
+  //         await db.poiStore.updatePoi(request.params.id, poi);
+  //       }
+  //       return h.response(poi).code(201);
+  //     } catch (err) {
+  //       console.log(err);
+  //       return Boom.serverUnavailable("Error while uploading the image");
+  //     }
+  //   },
+  //   payload: {
+  //     multipart: true,
+  //     output: "data",
+  //     maxBytes: 209715200,
+  //     parse: true,
+  //   },
+  //   tags: ["api"],
+  //   description: "Update the image of a poi",
+  // },
 };
