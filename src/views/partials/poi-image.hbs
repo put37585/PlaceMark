@@ -1,7 +1,7 @@
-{{#if poi.img}}
-  <div class="card-image">
+{{#each poi.img}}
+  <div class="card-image box">
     <figure class="image is-256x256">
-      <img src={{poi.img}} />
+      <img src={{this}} />
     </figure>
   </div>
-{{/if}}
+{{/each}}

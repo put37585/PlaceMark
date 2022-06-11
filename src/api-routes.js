@@ -25,5 +25,4 @@ export const apiRoutes = [
   { method: "DELETE", path: "/api/pois/{id}", config: poiApi.deleteOne },
   { method: "POST", path: "/api/pois/{id}/image", config: poiApi.uploadImage },
   { method: "POST", path: "/api/pois/{id}/image/delete", config: poiApi.deleteImage },
-  // { method: "POST", path: "/api/pois/{id}/updateimage", config: poiApi.updateImage },
 ];
