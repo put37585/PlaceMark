@@ -29,7 +29,7 @@ export const poiController = {
       options: { abortEarly: false },
       failAction: async function (request, h, error) {
         const poi = await db.poiStore.getPoiById(request.params.poiid);
-        return h.view("edit-poi-view", { title: "Edit poi error", poi: poi,  errors: error.details }).takeover().code(400);
+        return h.view("edit-poi-view", { title: "Edit poi error", poi: poi, errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -45,52 +45,58 @@ export const poiController = {
       return h.redirect(`/category/${categoryId}/poi/${newPoi._id}`);
     },
   },
-  updateImage: {
-    handler: async function(request, h) {
-      const categoryId = request.params.id;
-      const poi = await db.poiStore.getPoiById(request.params.poiid);
-      try {
-        const file = request.payload.imagefile;
-        await imageStore.deleteImage(poi.img);
-        if (Object.keys(file).length > 0) {
-          const url = await imageStore.uploadImage(request.payload.imagefile);
-          poi.img = url;
-          db.poiStore.updatePoi(poi);
-        }
-        return h.redirect(`/category/${categoryId}/poi/${poi._id}`);
-      } catch (err) {
-        console.log(err);
-        return h.redirect(`/category/${categoryId}/poi/${poi._id}`);
-      }
-    },
-    payload: {
-      multipart: true,
-      output: "data",
-      maxBytes: 209715200,
-      parse: true
-    }
-  },
   uploadImage: {
-    handler: async function(request, h) {
+    handler: async function (request, h) {
+      const categoryId = request.params.id;
+      const poiId = request.params.poiid;
       try {
-        const categoryId = request.params.id;
-        const poi = await db.poiStore.getPoiById(request.params.poiid);
+        const poi = await db.poiStore.getPoiById(poiId);
+        const file = request.payload.imagefile;
         if (Object.keys(file).length > 0) {
-          const url = await imageStore.uploadImage(request.payload.imagefile);
-          poi.img = url;
-          db.poiStore.updatePoi(poi);
+          const url = await imageStore.uploadImage(file);
+          if (!poi.img) {
+            poi.img = [];
+          }
+          poi.img.push(url);
+          await db.poiStore.updatePoi(poiId, poi);
         }
-        return h.redirect(`/category/${categoryId}/poi/${poi._id}`);
+        return h.redirect(`/category/${categoryId}/poi/${poiId}`);
       } catch (err) {
         console.log(err);
-        return h.redirect(`/category/${categoryId}/poi/${poi._id}`);
+        return h.redirect(`/category/${categoryId}/poi/${poiId}`);
       }
     },
     payload: {
       multipart: true,
       output: "data",
       maxBytes: 209715200,
-      parse: true
-    }
-  }
+      parse: true,
+    },
+  },
+
+  // updateImage: {
+  //   handler: async function(request, h) {
+  //     const categoryId = request.params.id;
+  //     const poi = await db.poiStore.getPoiById(request.params.poiid);
+  //     try {
+  //       const file = request.payload.imagefile;
+  //       await imageStore.deleteImage(poi.img);
+  //       if (Object.keys(file).length > 0) {
+  //         const url = await imageStore.uploadImage(request.payload.imagefile);
+  //         poi.img = url;
+  //         db.poiStore.updatePoi(poi);
+  //       }
+  //       return h.redirect(`/category/${categoryId}/poi/${poi._id}`);
+  //     } catch (err) {
+  //       console.log(err);
+  //       return h.redirect(`/category/${categoryId}/poi/${poi._id}`);
+  //     }
+  //   },
+  //   payload: {
+  //     multipart: true,
+  //     output: "data",
+  //     maxBytes: 209715200,
+  //     parse: true
+  //   }
+  // },
 };
