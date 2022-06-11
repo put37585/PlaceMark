@@ -1,5 +1,12 @@
 export const seedData = {
   users: {
+    admin: {
+      firstName: "ADMIN",
+      lastName: "ADMIN",
+      email: "ADMIN@ADMIN.com",
+      isAdmin: true,
+      password: "admin"
+    },
     _model: "User",
     homer: {
       firstName: "Homer",
@@ -16,9 +23,13 @@ export const seedData = {
   },
   categories: {
     _model: "Category",
-    mozart: {
+    bridges: {
       title: "Nice Bridges",
-      userid: "->users.marge"
+      userid: "->users.homer"
+    },
+    lakes: {
+      title: "Nice Lakes",
+      userid: "->users.homer"
     }
   },
   pois: {
@@ -28,7 +39,7 @@ export const seedData = {
       description: "Stone Bridge (Regensburg)",
       latitude: 49,
       longitude: 12,
-      playlistid: "->categories.mozart"
+      categoryid: "->categories.bridges"
     },
   }
 };

@@ -3,6 +3,7 @@ import { accountsController } from "./controllers/accounts-controller.js";
 import { dashboardController } from "./controllers/dashboard-controller.js";
 import { categoryController } from "./controllers/category-controller.js";
 import { poiController } from "./controllers/poi-controller.js";
+import {admindashboardController} from "./controllers/admindashboard-controller.js"
 
 export const webRoutes = [
   { method: "GET", path: "/", config: accountsController.index },
@@ -29,4 +30,7 @@ export const webRoutes = [
   { method: "POST", path: "/category/{id}/poi/{poiid}/uploadimage", config: poiController.uploadImage },
   { method: "POST", path: "/category/{id}/poi/{poiid}/update", config: poiController.update }, 
 
+
+  { method: "GET", path: "/admindashboard", config: admindashboardController.index },
+  { method: "GET", path: "/admindashboard/deleteuser/{id}", config: admindashboardController.deleteUser},
 ];
