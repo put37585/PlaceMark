@@ -6,9 +6,9 @@
     </h2>
     <p>Email: {{email}}</p>
     {{#unless isAdmin}}
-    <a href="/admindashboard/deleteuser/{{_id}}" class="button is-pulled-right">
-      <i class="fas fa-trash"></i>
-    </a>
+      <a href="/admindashboard/deleteuser/{{_id}}" class="button is-pulled-right">
+        <i class="fas fa-trash"></i>
+      </a>
     {{/unless}}
   </div>
 {{/each}}
