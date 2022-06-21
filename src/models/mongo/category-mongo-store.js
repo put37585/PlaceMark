@@ -26,8 +26,8 @@ export const categoryMongoStore = {
   },
 
   async getUserCategories(id) {
-    const category = await Category.find({ userid: id }).lean();
-    return category;
+    const categories = await Category.find({ userid: id }).lean();
+    return categories;
   },
 
   async deleteCategoryById(id) {

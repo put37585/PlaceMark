@@ -26,6 +26,7 @@ export const PoiSpec = Joi.object().keys({
   description: Joi.string().allow("").example("Stone Bridge (Regensburg)").optional(),
   latitude: Joi.number().example(49).required(),
   longitude: Joi.number().example(12).required(),
+  img: Joi.array().items(Joi.string()).example("Imageurls").optional(),
   categoryid: IdSpec,
 }).label("Poi");
 
@@ -47,10 +48,10 @@ export const PoiArraySpec = Joi.array().items(PoiSpecPlus).label("PoiArray");
 export const CategorySpec = Joi.object().keys({
   title: Joi.string().example("Nice Bridges").required(),
   userid: IdSpec,
-  pois: PoiArraySpec,
 });
 
 export const CategorySpecPlus = CategorySpec.keys({
+  pois: PoiArraySpec,
   _id: IdSpec,
   __v: Joi.number(),
 }).label("CategoryPlus");
@@ -61,5 +62,6 @@ export const JwtAuth = Joi.object()
   .keys({
     success: Joi.boolean().example("true").required(),
     token: Joi.string().example("eyJhbGciOiJND.g5YmJisIjoiaGYwNTNjAOhE.gCWGmY5-YigQw0DCBo").required(),
+    userid: IdSpec,
   })
   .label("JwtAuth");

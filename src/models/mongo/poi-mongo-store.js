@@ -39,8 +39,8 @@ export const poiMongoStore = {
     await Poi.deleteMany({});
   },
 
-  async updatePoi(updatedPoi) {
-    const poi = await Poi.findOne({ _id: updatedPoi._id });
+  async updatePoi(poiId, updatedPoi) {
+    const poi = await Poi.findOne({ _id: poiId });
     poi.name = updatedPoi.name;
     poi.description = updatedPoi.description;
     poi.latitude = updatedPoi.latitude;
@@ -48,6 +48,7 @@ export const poiMongoStore = {
     if (updatedPoi.img) {
       poi.img = updatedPoi.img;
     }
-    await poi.save();
+    const poiObj = await poi.save();
+    return this.getPoiById(poiObj._id);
   },
 };
